@@ -35,9 +35,9 @@ namespace RDaF.Shared.Entities.ReferenceAggregate
         public string HarvardCitation { get; set; }
         public bool StatusFlag { get; set; }
         public string Squib { get; set; }
-        public int PublicationTypes { get; set; }
+        public string PublicationTypes { get; set; }
         public string PublYear { get; set; }
-        public int Volume { get; set; }
+        public string Volume { get; set; }
         public string DbKey { get; set; }
         public string Language { get; set; }
     }

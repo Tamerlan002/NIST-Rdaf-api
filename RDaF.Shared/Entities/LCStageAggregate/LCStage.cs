@@ -9,10 +9,10 @@ namespace RDaF.Shared.Entities.LCStageAggregate
 {
     public class LCStage : Entity
     {
-        public string LifeCycleStage { get; }
-        public string LifeCycleStageDefinition { get; }
-        public bool StatusFlag { get; }
-        public bool HasTopics { get; }
-        public string LinkName { get; }
+        public string LifeCycleStage { get; set; }
+        public string LifeCycleStageDefinition { get; set;  }
+        public bool StatusFlag { get; set;  }
+        public bool HasTopics { get; set;  }
+        public string LinkName { get; set;  }
     }
 }

@@ -18,42 +18,42 @@ namespace RDaF.Api.Extensions
 
                 var context = services.GetService<TContext>();
 
-                //try
-                //{
-                //    logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
+                try
+                {
+                    logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
 
-                //    var retry = Policy.Handle<SqlException>()
-                //        .WaitAndRetryAsync(new[]
-                //        {
-                //            TimeSpan.FromSeconds(5),
-                //            TimeSpan.FromSeconds(10),
-                //            TimeSpan.FromSeconds(15)
-                //        });
+                    var retry = Policy.Handle<SqlException>()
+                        .WaitAndRetryAsync(new[]
+                        {
+                            TimeSpan.FromSeconds(5),
+                            TimeSpan.FromSeconds(10),
+                            TimeSpan.FromSeconds(15)
+                        });
 
-                //    retry.ExecuteAsync(async () =>
-                //    {
-                //        //if the sql server container is not created on run docker compose this
-                //        //migration can't fail for network related exception. The retry options for DbContext only 
-                //        //apply to transient exceptions.
+                    retry.ExecuteAsync(async () =>
+                    {
+                        //if the sql server container is not created on run docker compose this
+                        //migration can't fail for network related exception. The retry options for DbContext only 
+                        //apply to transient exceptions.
 
-                //        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+                        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
 
-                //        if (pendingMigrations.Any())
-                //        {
-                //            await context.Database.MigrateAsync();
-                //        }
+                        if (pendingMigrations.Any())
+                        {
+                            await context.Database.MigrateAsync();
+                        }
 
-                //        await seed(context, services);
-                //    }).Wait();
+                        await seed(context, services);
+                    }).Wait();
 
 
-                //    logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
-                //}
-                //catch (Exception ex)
-                //{
-                //    logger.LogError(ex,
-                //        $"An error occurred while migrating the database used on context {typeof(TContext).Name}");
-                //}
+                    logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex,
+                        $"An error occurred while migrating the database used on context {typeof(TContext).Name}");
+                }
             }
 
             return webHost;

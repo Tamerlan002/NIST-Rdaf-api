@@ -53,16 +53,16 @@ namespace RDaF.Api
 
 
             //For MYSQL, since remote db is postgresql
-            //services.AddDbContext<RDaFDbContext>(options =>
-            //{
-                //options.UseMySQL(
-                //    Configuration.GetConnectionString("ConnectionString"),
-                //    mysqlOptions =>
-                //    {
-                //        mysqlOptions.MigrationsAssembly("RDaF.Data");
-                //        mysqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(3), null); // Pass 'null' as the third argument
-                //    });
-            //});
+            services.AddDbContext<RDaFDbContext>(options =>
+            {
+                options.UseMySQL(
+                    Configuration.GetConnectionString("ConnectionString"),
+                    mysqlOptions =>
+                    {
+                        mysqlOptions.MigrationsAssembly("RDaF.Data");
+                        mysqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(3), null); // Pass 'null' as the third argument
+                    });
+            });
 
 
 
@@ -143,9 +143,7 @@ namespace RDaF.Api
                     name: "default",
                     pattern: "{controller}/{action}/{id?}");
             });
-            //Task.Run(async () => await SeedRegions.Seed(context));
 
-            //OneXTwoDbContext.Seed(context, userManager, roleManager).Wait();
         }
 
 

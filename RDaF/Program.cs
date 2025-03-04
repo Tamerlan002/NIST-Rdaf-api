@@ -12,12 +12,11 @@ public class Program
 
         var host = CreateHostBuilder(args).Build();
 
-        //host.MigrateDbContext<RDaFDbContext>(async (context, services) =>
-        //{
-        //    var env = services.GetService<IWebHostEnvironment>();
-        //    var settings = services.GetService<IOptions<RDaFSettings>>();
-
-        //});
+        host.MigrateDbContext<RDaFDbContext>(async (context, services) =>
+        {
+            var env = services.GetService<IWebHostEnvironment>();
+            var settings = services.GetService<IOptions<RDaFSettings>>();
+        });
 
         host.Run();
 
